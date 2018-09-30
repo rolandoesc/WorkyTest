@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <h1> {{album$.album}}</h1>
+      
+    </div>
+    <div class="col-lg-10 offset-lg-1">
+      <dl class="row">
+        <dt class="col-lg-4 offset-lg-1">Artist: {{album$.artist}}</dt>
+        <dt class="col-lg-4 offset-lg-1">Release Year: {{album$.year}}</dt>
+        <dt class="col-lg-4 offset-lg-1">Country: {{album$.country}}</dt>
+        <dt class="col-lg-4 offset-lg-1">Album Code: {{album$.label}}</dt>
+        <dt class="col-lg-2 offset-lg-1">
+          Average Rating:
+        </dt> 
+        <dd class="col-lg-2"> 
+          <star-rating 
+            [starType]="'svg'" [rating]="average$" 
+            [readOnly]="true" labelText="{{average$}}" labelPosition="left"></star-rating>
+        </dd>
+      </dl>
+    </div>
+    <div class="col-lg-8 offset-lg-2">
+      <h4 class="">Comentarios</h4>
+      <br>
+      <form [formGroup]="commentForm">
+        <div class="form-group">
+          <label>Leave a comment</label>
+          <div class="row">
+            <star-rating-control formControlName="stars" class="col-lg-2"></star-rating-control>
+            <textarea class="form-control col-lg-10" id="exampleFormControlTextarea1" rows="3" formControlName="comment"></textarea>
+          </div>
+        </div>
+      </form>
+      <button class="btn btn-success" (click)="sendComment(commentForm)">Send Comment</button>
+
+      <div class="card" *ngFor="let comment of comments$ | async">
+        <div class="row">
+          <div class="col-lg-2"><star-rating [starType]="'svg'" [rating]="comment.stars" [readOnly]="true"></star-rating></div>
+          <div class="col-lg-10">{{comment.comment}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
