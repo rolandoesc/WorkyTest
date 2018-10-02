@@ -32,10 +32,10 @@
           </div>
         </div>
       </form>
-      <button class="btn btn-success" (click)="sendComment(commentForm)">Send Comment</button>
+      <button class="btn btn-success" (click)="sendComment(commentForm)" [disabled]="!commentForm.valid">Send Comment</button>
 
-      <div class="card" *ngFor="let comment of comments$ | async">
-        <div class="row">
+      <div class="card" *ngFor="let comment of comments$ | async | reverse">
+        <div class="row card-body">
           <div class="col-lg-2"><star-rating [starType]="'svg'" [rating]="comment.stars" [readOnly]="true"></star-rating></div>
           <div class="col-lg-10">{{comment.comment}}</div>
         </div>

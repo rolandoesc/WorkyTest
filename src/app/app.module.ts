@@ -13,14 +13,21 @@ import { DetailedAlbumComponent } from './home/albums/detailed-album/detailed-al
 import { AlbumResolverService } from './services/album-resolver.service';
 import { StarRatingModule } from 'angular-star-rating'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReversePipe } from './pipes/reverse.pipe';
+import { HeaderComponent } from './static/header/header.component';
+import { SalesComponent } from './home/sales/sales.component';
+
 
 
 @NgModule({
   declarations: [
+    ReversePipe,
     AppComponent,
     HomeComponent,
     AlbumsComponent,
-    DetailedAlbumComponent
+    DetailedAlbumComponent,
+    HeaderComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,

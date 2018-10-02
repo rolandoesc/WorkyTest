@@ -1,0 +1,45 @@
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="text-center">Sold albums at Store</h3>
+          <ul class="list">
+            <li class="list-item" *ngFor="let sale of sale$">
+              <p>{{ sale.id }} {{ sale.quantity}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="text-center">Sold at Warehouse</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 offset-lg-2">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 class="text-center">
+            Most Sold
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 class="text-center">
+            Least Sold
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

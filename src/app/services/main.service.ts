@@ -14,6 +14,9 @@ export class MainService {
   commentsRef:AngularFireList<any[]>;
   comments: Observable<any[]>;
 
+  salesRef: AngularFireList<any>;
+  sales: Observable<any[]>
+    
   
   constructor(private db: AngularFireDatabase) { 
     this.albumsRef = db.list('albums');
@@ -28,6 +31,29 @@ export class MainService {
       map(changes => changes.map(c =>({key: c.payload.key, ...c.payload.val() }))),
       map(change => change.filter(c => c['albumId'] === parseInt(this.albumID)))
     );
+
+    this.salesRef = db.list('sales');
+    this.sales = this.salesRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>({key: c.payload.key, ...c.payload.val() }))
+      ), map(changes => changes.reduce((labels, sale) => {
+          sale['albums'].forEach(album => {
+            labels[album.label] = {
+              id: album.label,
+              quantity:
+                labels[album.label] && labels[album.label].quantity
+                  ? labels[album.label].quantity + album.quantity
+                  : album.quantity
+            };
+          });
+          return labels
+         }, {})      
+      )//map
+    );
+
+
+
+
   }
 
   setAlbumId(str: string) {
@@ -43,7 +69,11 @@ export class MainService {
 
   saveComment(form) {
     return this.commentsRef.push(form);
-}
+  }
+
+  getSales() {
+    return this.sales;
+  }
 
 
 }

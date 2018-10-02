@@ -23,8 +23,8 @@ export class DetailedAlbumComponent implements OnInit, OnDestroy {
   constructor(private service: MainService, private fb: FormBuilder) {
     this.commentForm = fb.group({
       'stars': new FormControl("", Validators.required),
-      'comment': new FormControl("", Validators.required),
-      'albumId': new FormControl("", Validators.required),
+      'comment': new FormControl(""),
+      'albumId': new FormControl(""),
       'id': new FormControl(this.id())
     });
 
@@ -59,9 +59,14 @@ export class DetailedAlbumComponent implements OnInit, OnDestroy {
     console.log(value);
     value.albumId = parseInt(value.albumId);
     this.service.saveComment(value);
+    this.commentForm.reset({stars: null, comment: '', id: this.id(), albumId: this.album$['key']})
+
   }
+
   id() {
     return '_' + Math.random().toString(36).substr(2, 8).toUpperCase();
   };
+
+
 
 }
