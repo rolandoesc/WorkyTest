@@ -7,7 +7,7 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./sales.component.scss']
 })
 export class SalesComponent implements OnInit {
-  sale$; //this.service.getSales();
+  sale$;
   constructor(private service: MainService) { 
     this.service.getSales().subscribe(data => 
       {
@@ -15,11 +15,12 @@ export class SalesComponent implements OnInit {
         Object.entries(data).forEach(([key,value]) => {
           object.push(value)
         });
-        console.log(object)
         object = object.sort((a,b) => b['quantity'] - a['quantity'])  
         this.sale$ = object;
       }
     );
+
+    this.service.getPurchases().subscribe(data => console.log(data));
   }
 
   ngOnInit() {

@@ -16,6 +16,11 @@ export class MainService {
 
   salesRef: AngularFireList<any>;
   sales: Observable<any[]>
+
+  purchasesRef: AngularFireList<any>;
+  purchases: Observable<any[]>
+
+
     
   
   constructor(private db: AngularFireDatabase) { 
@@ -38,6 +43,25 @@ export class MainService {
         changes.map(c =>({key: c.payload.key, ...c.payload.val() }))
       ), map(changes => changes.reduce((labels, sale) => {
           sale['albums'].forEach(album => {
+            labels[album.label] = {
+              id: album.label,
+              quantity:
+                labels[album.label] && labels[album.label].quantity
+                  ? labels[album.label].quantity + album.quantity
+                  : album.quantity
+            };
+          });
+          return labels
+         }, {})      
+      )//map
+    );
+
+    this.purchasesRef = db.list('purchases');
+    this.purchases = this.purchasesRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>({key: c.payload.key, ...c.payload.val() }))
+      ), map(changes => changes.reduce((labels, purchase) => {
+          purchase['albums'].forEach(album => {
             labels[album.label] = {
               id: album.label,
               quantity:
@@ -75,5 +99,7 @@ export class MainService {
     return this.sales;
   }
 
-
+  getPurchases() {
+    return this.purchases;
+  }
 }

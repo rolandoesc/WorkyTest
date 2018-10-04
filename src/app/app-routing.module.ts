@@ -9,18 +9,14 @@ import { SalesComponent } from './home/sales/sales.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: 'sales', component: SalesComponent },
-  { path: 'albums', component: AlbumsComponent, children: [
-    { path: ':id', 
-      component: DetailedAlbumComponent, 
-      resolve: {data: AlbumResolverService}
-    }  
-  ]},
+  { path: 'albums', component: AlbumsComponent},
+  { path: 'albums/:id', component: DetailedAlbumComponent, resolve: {data: AlbumResolverService}}  
   //
   
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

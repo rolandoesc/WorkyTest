@@ -1,0 +1,12 @@
+ul.list-inline {
+  margin-top: 5vh;
+  li.list-inline-item {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    .card { 
+      background-color: rgb(53, 56, 58);
+      margin-bottom: 2vh;
+    }
+  }
+}
+

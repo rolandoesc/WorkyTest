@@ -1,27 +1,24 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 offset-lg-3">
-      <h1> {{album$.album}}</h1>
+      <h1 class="text-center"> {{album$.album}}</h1>
+      <h3>
+        <star-rating 
+        [starType]="'svg'" [rating]="average$" 
+        [readOnly]="true" labelText="{{average$}}" labelPosition="left"></star-rating>
+      </h3>
       
     </div>
     <div class="col-lg-10 offset-lg-1">
       <dl class="row">
-        <dt class="col-lg-4 offset-lg-1">Artist: {{album$.artist}}</dt>
-        <dt class="col-lg-4 offset-lg-1">Release Year: {{album$.year}}</dt>
-        <dt class="col-lg-4 offset-lg-1">Country: {{album$.country}}</dt>
-        <dt class="col-lg-4 offset-lg-1">Album Code: {{album$.label}}</dt>
-        <dt class="col-lg-2 offset-lg-1">
-          Average Rating:
-        </dt> 
-        <dd class="col-lg-2"> 
-          <star-rating 
-            [starType]="'svg'" [rating]="average$" 
-            [readOnly]="true" labelText="{{average$}}" labelPosition="left"></star-rating>
-        </dd>
+        <dt class="col-lg-4 offset-lg-2">Artist: {{album$.artist}}</dt>
+        <dt class="col-lg-4 offset-lg-2">Release Year: {{album$.year}}</dt>
+        <dt class="col-lg-4 offset-lg-2">Country: {{album$.country}}</dt>
+        <dt class="col-lg-4 offset-lg-2">Album Code: {{album$.label}}</dt>
       </dl>
     </div>
     <div class="col-lg-8 offset-lg-2">
-      <h4 class="">Comentarios</h4>
+      <h4>Comments</h4>
       <br>
       <form [formGroup]="commentForm">
         <div class="form-group">
@@ -32,8 +29,7 @@
           </div>
         </div>
       </form>
-      <button class="btn btn-success" (click)="sendComment(commentForm)" [disabled]="!commentForm.valid">Send Comment</button>
-
+      <button class="btn btn-success" id="button" (click)="sendComment(commentForm)" [disabled]="!commentForm.valid">Send Comment</button>
       <div class="card" *ngFor="let comment of comments$ | async | reverse">
         <div class="row card-body">
           <div class="col-lg-2"><star-rating [starType]="'svg'" [rating]="comment.stars" [readOnly]="true"></star-rating></div>
